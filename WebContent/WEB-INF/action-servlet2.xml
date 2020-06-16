@@ -19,6 +19,67 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 		또한 userMethodNameResolver는 스프링의 PropertiesMethodResolver클래스를 이용해 요청주소명에 대해 호출할 
 		메소드를 바로 지정합니다. 
 	 -->
+	 <!--
+	 	UserController컨트롤러에서 ModelAndView 인자로 뷰이름이 반환되면 
+	 	InternalResourceViewResolver의 프로퍼티 prefix속성에 지정된 /test폴더에서
+	 	ModelandView 인자로 넘어온 뷰이름에 해당하는 JSP를 선택해 
+	 	DispatcherServlet으로 보냅니다.
+	 	
+	 	result라는 뷰이름만 전달 받아 아래의 경로를 만들어서 DispatcherServlet으로 뷰 경로를 전달함.
+	 	/test/result.jsp
+	 -->
+	 
+	 
+	 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	 	
+	 	<property name="viewClass" 
+	 		value="org.springframework.web.servlet.view.JstlView"/>
+	 	<property name="prefix" value="/test/" />
+	 	<property name="suffix" value=".jsp"/>	 
+	 </bean>
+	 
+	 <!-- URL요청명이 /test/*.do로 시작되면 UserController를 요청하게 설정 -->
+	 <bean id="userUrlMapping" 
+	 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	 		
+	 	<property name="mappings">
+	 		<props>
+	 			<prop key="/test/*.do">userController</prop>
+	 		</props>
+	 	</property>
+	 
+	 </bean>
+	 
+	 
+	 
+	 
+	 
+	 
+	 <bean id="userController" class="com.spring.ex02.UserController">
+	 
+		<!--  methodNameResolver 프로퍼티에 아래의 PropertiesMethodNameResolver빈을 주입해서
+			지정한 /test/login.do라는 요청명에 대해 직접 아래의 login메소드를 호출할 수 있다.  -->
+	 	<property name="methodNameResolver">
+	 		<ref local="userMethodNameResolver"/>
+	 		
+	 		
+	 	</property>
+	 
+	 </bean>
+	 
+	 <!-- /test/login.do로 요청이 들어오면 userController의 login메소드를 호출합니다. -->
+	 <bean id="userMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+	 
+	 	<property name="mappings">
+	 		<props>
+	 			<prop key="/test/login.do">login</prop>
+	 		</props>
+	 	</property>
+	 
+	 </bean>
+	 
+	 
+	 
 
 
 </beans>
