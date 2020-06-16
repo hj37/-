@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<!-- 
+		action-servlet2.xml설명 
+		웹브라우저에서 /test/*.do로 호출하면 userUrlMapping 빈을 이용해 userController빈을 호출함.
+		userController빈의 methodNameResolver프로퍼티에는 userMethodNameResolver빈이 주입되어 있으므로 
+		/test/login.do로 요청하면 userController 빈의 login 메소드를 호출합니다. 
+		또한 userMethodNameResolver는 스프링의 PropertiesMethodResolver클래스를 이용해 요청주소명에 대해 호출할 
+		메소드를 바로 지정합니다. 
+	 -->
+
+
+</beans>
